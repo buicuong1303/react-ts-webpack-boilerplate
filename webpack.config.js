@@ -63,8 +63,11 @@ module.exports = (env, argv) => {
           }
         },
         {
-          test: /\.(woff|woff2|eot|ttf|otf)$/i,
-          type: 'asset/resource'
+          test: /\.(eot|ttf|woff|woff2)$/, // Dùng để import font
+          type: 'asset/resource',
+          generator: {
+            filename: 'static/fonts/[name].[contenthash:6].[ext]'
+          }
         }
       ]
     },
@@ -130,7 +133,6 @@ module.exports = (env, argv) => {
         test: /\.(css|js)$/,
         algorithm: 'brotliCompress'
       })
-      // new CleanWebpackPlugin() // Dọn dẹp thư mục build trước đó để chuẩn bị cho bản build hiện tại
     ]
     if (isAnalyze) {
       config.plugins = [...config.plugins, new BundleAnalyzerPlugin()]
